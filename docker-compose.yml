@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  geo:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.geo.rule=Host(`geo.dev01.apibox.link`)"
+      - "traefik.http.routers.geo.entrypoints=websecure"
+      - "traefik.http.routers.geo.tls=true"
+      - "traefik.http.services.geo.loadbalancer.server.port=8000"
+    networks:
+      - alora_net
+networks:
+  alora_net:
+    external: true
+
+      - LLAMA_ENDPOINT=http://llama.dev01.apibox.link
+      - REDIS_HOST=host.docker.internal
+      - ELASTIC_URL=http://elasticsearch:9200
+      - PELIAS_URL=http://pelias:4000
