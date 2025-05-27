@@ -6,6 +6,10 @@ services:
     ports:
       - "8000:8000"
     environment:
+      - LLAMA_ENDPOINT=http://llama.dev01.apibox.link
+      - REDIS_HOST=host.docker.internal
+      - ELASTIC_URL=http://elasticsearch:9200
+      - PELIAS_URL=http://pelias:4000
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.geo.rule=Host(`geo.dev01.apibox.link`)"
@@ -17,8 +21,3 @@ services:
 networks:
   alora_net:
     external: true
-
-      - LLAMA_ENDPOINT=http://llama.dev01.apibox.link
-      - REDIS_HOST=host.docker.internal
-      - ELASTIC_URL=http://elasticsearch:9200
-      - PELIAS_URL=http://pelias:4000
